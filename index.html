@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#00f0ff" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#0099aa" media="(prefers-color-scheme: light)">
+
+  <title>Be Better — Suivi d'objectifs personnels</title>
+  <meta name="description" content="Suivez vos objectifs personnels sur 4 mois. Discipline, régularité et progression — 100% local, aucune connexion requise.">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="images/logo.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Be Better">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="images/logo.png">
+
+  <!-- Google Fonts — loaded with font-display swap for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    /* Splash / loading state */
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: #080808;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      z-index: 999;
+      transition: opacity 0.4s ease;
+    }
+    #splash.hidden { opacity: 0; pointer-events: none; }
+    #splash img { width: 64px; height: 64px; }
+    #splash-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #f0f0f0;
+      letter-spacing: -0.03em;
+    }
+    #splash-bar {
+      width: 120px;
+      height: 2px;
+      background: #1e1e1e;
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    #splash-fill {
+      height: 100%;
+      width: 0;
+      background: #00f0ff;
+      border-radius: 1px;
+      animation: splash-load 1.2s ease forwards;
+    }
+    @keyframes splash-load {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Splash screen -->
+  <div id="splash">
+    <img src="images/logo.png" alt="Be Better">
+    <div id="splash-title">Be Better</div>
+    <div id="splash-bar"><div id="splash-fill"></div></div>
+  </div>
+
+  <!-- App root -->
+  <div id="app"></div>
+
+  <!-- App entry point (ES module) -->
+  <script type="module" src="js/app.js"></script>
+
+  <script>
+    // Hide splash after app boots
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splash');
+        if (splash) {
+          splash.classList.add('hidden');
+          setTimeout(() => splash.remove(), 400);
+        }
+      }, 1400);
+    });
+  </script>
+
+</body>
+</html>
